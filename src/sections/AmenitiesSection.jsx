@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./AmenitiesSection.css";
 
 // Import images
 import page3 from "../assets/page3.png";
@@ -115,7 +114,12 @@ export default function AmenitiesSection() {
                 onMouseLeave={handleMouseLeave}
               >
                 <div className="amenitiesCarouselImageWrapper">
-                  <img src={item.image} alt={item.title} />
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <div className="amenitiesCarouselItemTitle">{item.title}</div>
               </div>

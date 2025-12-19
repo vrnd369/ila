@@ -1,5 +1,4 @@
 import React from "react";
-import "./MasterplanSection.css";
 
 export default function MasterplanSection() {
   return (

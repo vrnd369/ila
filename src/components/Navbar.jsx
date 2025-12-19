@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./Navbar.css";
 import logo from "../assets/logo.png";
 
 const sections = [
@@ -73,7 +72,7 @@ export default function Navbar({ scrollToSection }) {
           onClick={openMenu}
           aria-label="Open menu"
         >
-          <img src={logo} alt="ILA" />
+          <img src={logo} alt="ILA" width="40" height="40" loading="eager" />
         </button>
 
         {/* Tagline BELOW the box */}
@@ -95,7 +94,7 @@ export default function Navbar({ scrollToSection }) {
           {/* Header: CENTER logo + tagline, X pinned right */}
           <div className="ilaMenuHeader">
             <div className="ilaMenuBrand">
-              <img src={logo} alt="ILA" className="ilaMenuLogo" />
+              <img src={logo} alt="ILA" className="ilaMenuLogo" width="46" height="46" loading="eager" />
               <div className="ilaTagline dark" aria-hidden="true">
                 <span className="tag-top">THE FLOW</span>
                 <span className="tag-mid">of</span>

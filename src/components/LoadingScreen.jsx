@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import "./LoadingScreen.css";
 import loadingVideo from "../assets/loading.mp4";
 
 export default function LoadingScreen({ onFinish }) {
@@ -39,9 +38,8 @@ export default function LoadingScreen({ onFinish }) {
         autoPlay
         muted
         playsInline
+        preload="auto"
       />
-
-     
     </div>
   );
 }

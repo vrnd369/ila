@@ -1,5 +1,4 @@
 import React from "react";
-import "./HomeSection.css";
 
 export default function HomeSection() {
   return (

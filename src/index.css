@@ -5,6 +5,7 @@ html {
 
 body {
   margin: 0;
+  /* System fonts as fallback - fonts will swap in with display=swap */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -13,18 +14,7 @@ body {
   background-color: #0a1a0f;
   direction: ltr;
   text-align: left;
-  /* Show content immediately - fonts will load with display=swap */
-  visibility: visible;
-}
-
-/* Show body once fonts are loaded (optional - for better font rendering) */
-body.fonts-loaded {
-  /* Fonts loaded, ensure visibility */
-  visibility: visible;
-}
-
-body.fonts-timeout {
-  /* Fallback after timeout */
+  /* Content visible immediately - fonts swap in without blocking */
   visibility: visible;
 }
 

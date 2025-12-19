@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./HighlightsSection.css";
 
 // Import images
 import page1 from "../assets/page1.png";
@@ -151,6 +150,8 @@ export default function HighlightsSection() {
               className={`hotelsHeroImage hotelsHeroImageCurrent ${
                 isTransitioning ? 'fade-out' : 'fade-in'
               }`}
+              loading="lazy"
+              decoding="async"
             />
             {/* Next Image (during transition) */}
             {isTransitioning && nextHeroIndex !== null && (
@@ -158,6 +159,8 @@ export default function HighlightsSection() {
                 src={hotelImages[nextHeroIndex].image}
                 alt={hotelImages[nextHeroIndex].name}
                 className="hotelsHeroImage hotelsHeroImageNext fade-in"
+                loading="lazy"
+                decoding="async"
               />
             )}
           </div>
@@ -184,7 +187,14 @@ export default function HighlightsSection() {
                 >
                   <div className="hotelsCarouselCardTitle">{item.name}</div>
                   <div className="hotelsCarouselCardImage">
-                    <img src={item.image} alt={item.name} />
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      loading="lazy"
+                      decoding="async"
+                      width="160"
+                      height="100"
+                    />
                   </div>
                 </div>
               ))}

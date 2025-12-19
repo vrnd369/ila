@@ -1,10 +1,18 @@
 * { box-sizing: border-box; }
 
+html {
+  scroll-behavior: auto;
+  /* Prevent scroll restoration */
+  scroll-padding-top: 0;
+}
+
 html, body {
   overflow-x: hidden;
   background-color: #0a1a0f;
   direction: ltr;
   text-align: left;
+  /* Ensure page starts at top */
+  scroll-behavior: auto;
 }
 
 html, body, #root {
@@ -28,12 +36,19 @@ html, body, #root {
   overflow-x: hidden;
   overflow-y: visible;
   contain: layout style;
+  /* Prevent layout shift - reserve space for image */
+  min-height: 100vh;
 }
 
 .posterImg {
   width: 100%;
   height: auto;
   display: block;
+  /* Prevent layout shift - reserve minimum space */
+  min-height: 100vh;
+  /* Maintain aspect ratio to prevent CLS */
+  /* Image is very tall (33648px), so we use a flexible approach */
+  aspect-ratio: auto;
 }
 
 .overlay {

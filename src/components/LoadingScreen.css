@@ -7,6 +7,9 @@
   justify-content: center;
   z-index: 9999;
   overflow: hidden;
+  /* Allow content behind to render - don't block initial paint */
+  will-change: opacity;
+  transition: opacity 0.3s ease-out;
 }
 
 .loading-video {
@@ -14,6 +17,7 @@
   height: 100%;
   object-fit: cover;
 }
+
 
 
 

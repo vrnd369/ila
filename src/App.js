@@ -1,6 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import "./App.css";
-
 import bgImage from "./assets/mainpage2.png";
 
 import Navbar from "./components/Navbar";
@@ -86,30 +84,8 @@ export default function App() {
     }));
   }, [windowWidth]);
 
-  // ✅ Measure AFTER image loads + on resize
+  // Measure image height after load to position sections correctly
   useEffect(() => {
-    // Optimize font loading - load critical fonts first
-    if ('fonts' in document) {
-      // Load critical fonts immediately for faster rendering
-      const criticalFonts = [
-        '300 1em "Playfair Display"',
-        '300 1em "Cormorant Garamond"',
-      ];
-      
-      Promise.all(
-        criticalFonts.map(font => document.fonts.load(font))
-      ).then(() => {
-        // Critical fonts loaded
-      }).catch(() => {
-        // Fonts failed, continue anyway
-      });
-      
-      // Wait for all fonts to be ready (non-blocking)
-      document.fonts.ready.then(() => {
-        // All fonts loaded
-      });
-    }
-
     const measure = () => {
       if (!imgRef.current) return;
       setImgHeight(imgRef.current.getBoundingClientRect().height);
@@ -128,22 +104,65 @@ export default function App() {
     };
   }, []);
 
+  // Prevent scrolling while loader is visible
   useEffect(() => {
-    // Safety timeout so the loader never gets stuck if the video fails
-    const timeoutId = setTimeout(() => setShowLoader(false), 12000);
+    if (showLoader) {
+      // Lock scroll position while loading
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      window.scrollTo(0, 0);
+    } else {
+      // Unlock scroll after loader is hidden
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+  }, [showLoader]);
+
+  useEffect(() => {
+    // Disable browser scroll restoration to prevent unwanted scrolling
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    
+    // Ensure page starts at top on initial load
+    window.scrollTo(0, 0);
+    
+    // Reduced timeout for faster initial render - don't block content
+    // In production, loading screen should be minimal
+    const timeoutId = setTimeout(() => {
+      setShowLoader(false);
+      // Ensure scroll to top when timeout finishes
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'instant'
+        });
+      });
+    }, 3000);
     return () => clearTimeout(timeoutId);
   }, []);
 
 
   const handleLoaderFinish = useCallback(() => {
     setShowLoader(false);
-    // Scroll to top of page (logo and navbar) after loading finishes
-    setTimeout(() => {
+    // Immediately scroll to top when loader finishes
+    // Use requestAnimationFrame to ensure DOM is ready
+    requestAnimationFrame(() => {
       window.scrollTo({
         top: 0,
+        left: 0,
         behavior: 'instant'
       });
-    }, 100);
+      // Force scroll again after a brief delay to ensure it sticks
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'instant'
+        });
+      }, 50);
+    });
   }, []);
 
   const scrollToSection = useCallback(
@@ -173,7 +192,14 @@ export default function App() {
       <Navbar scrollToSection={scrollToSection} />
 
       <div className="posterWrap" ref={wrapRef}>
-        <img ref={imgRef} src={bgImage} alt="ILA" className="posterImg" />
+        <img 
+          ref={imgRef} 
+          src={bgImage} 
+          alt="ILA" 
+          className="posterImg"
+          loading="eager"
+          decoding="async"
+        />
 
         {imgHeight > 0 &&
           sections.map((s) => (
