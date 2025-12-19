@@ -1,0 +1,648 @@
+/* ===== DESKTOP STYLES (min-width: 1024px) ===== */
+.highlightsTitle {
+  margin: 0 0 50px;
+  font-size: 3.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+}
+
+.highlightsText {
+  margin: 0 auto 30px;
+  max-width: 800px;
+  font-size: 1.8rem;
+  line-height: 1.85;
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  text-align: center;
+  padding: 0 20px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+
+
+.highlightsFeaturesContainer {
+  margin-top: 80px;
+  padding-bottom: 100px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  contain: layout style;
+}
+
+.highlightsFeaturesTitle {
+  margin-bottom: 40px;
+  font-size: 2.4rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  padding-top: 1300px;
+}
+
+
+.highlightsFeaturesList {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 60px;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
+
+.highlightsFeatureItem {
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 22px;
+  padding-left: 34px;
+  position: relative;
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  text-align: left;
+  letter-spacing: 0.02em;
+}
+
+.highlightsFeatureItem::before {
+  content: "•";
+  position: absolute;
+  left: 12px;
+  top: 0.2em;
+  font-size: 1.6rem;
+}
+
+
+
+.highlightsIdealTitle {
+  margin: 60px 0 30px;
+  font-size: 2.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  text-align: center;
+}
+
+.highlightsIdealList {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.highlightsIdealItem {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.02em;
+}
+
+/* ===== TABLET STYLES (769px - 1023px) ===== */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .highlightsTitle {
+    font-size: 2rem;
+    margin-bottom: 35px;
+    letter-spacing: 0.06em;
+    padding: 0 20px;
+  }
+
+  .highlightsText {
+    font-size: 1.2rem;
+    line-height: 1.75;
+    padding: 0 25px;
+    margin-bottom: 25px;
+  }
+
+  .highlightsFeaturesContainer {
+    margin-top: 50px;
+    padding-bottom: 120px;
+  }
+
+  .highlightsFeaturesTitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 0.08em;
+    padding: 600px 20px 0;
+    line-height: 1.25;
+  }
+
+  .highlightsFeaturesList {
+    margin-bottom: 40px;
+    padding: 0 20px;
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .highlightsFeatureItem {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    padding-left: 30px;
+    margin-bottom: 18px;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .highlightsFeatureItem::before {
+    left: 11px;
+    font-size: 1.2rem;
+    top: 0.18em;
+  }
+
+  .highlightsIdealTitle {
+    font-size: 1.5rem;
+    margin: 40px 0 25px;
+    letter-spacing: 0.08em;
+    padding: 0 20px;
+    line-height: 1.25;
+  }
+
+  .highlightsIdealList {
+    padding: 0 20px;
+  }
+
+  .highlightsIdealItem {
+    font-size: 1.1rem;
+    margin-bottom: 17px;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* ===== MOBILE STYLES (max-width: 768px) ===== */
+@media (max-width: 768px) {
+  .highlightsTitle {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    letter-spacing: 0.04em;
+    padding: 0 20px;
+    line-height: 1.2;
+  }
+
+  .highlightsText {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+
+  .highlightsFeaturesContainer {
+    margin-top: 40px;
+  }
+
+  .highlightsFeaturesTitle {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    letter-spacing: 0.06em;
+    padding: 0 20px;
+    line-height: 1.25;
+  }
+
+  .highlightsFeaturesList {
+    margin-bottom: 35px;
+    padding: 0 20px;
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .highlightsFeatureItem {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding-left: 28px;
+    margin-bottom: 16px;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .highlightsFeatureItem::before {
+    left: 10px;
+    font-size: 1.1rem;
+    top: 0.15em;
+  }
+
+  .highlightsIdealTitle {
+    font-size: 1.2rem;
+    margin: 35px 0 25px;
+    letter-spacing: 0.06em;
+    padding: 0 20px;
+    line-height: 1.25;
+  }
+
+  .highlightsIdealList {
+    padding: 0 20px;
+  }
+
+  .highlightsIdealItem {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    letter-spacing: 0.02em;
+  }
+
+  .highlightsFeaturesContainer {
+    padding-bottom: 150px;
+  }
+}
+
+/* ===== HOTELS & RESORTS SECTION STYLES ===== */
+/* Existing Highlights Title & Text CSS remains unchanged */
+
+/* ===== HOTELS & RESORTS SECTION ===== */
+.hotelsResortsSection {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 100px;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  contain: layout style;
+  overflow: hidden;
+}
+
+/* Hero Section - Full Screen */
+.hotelsHeroSection {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  margin: 0;
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  contain: layout style;
+}
+
+.hotelsHeroImageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hotelsHeroImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: zoomIn 15s ease-in-out infinite alternate;
+}
+
+.hotelsHeroImageCurrent {
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+  z-index: 1;
+}
+
+.hotelsHeroImageCurrent.fade-out {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.hotelsHeroImageCurrent.fade-in {
+  opacity: 1;
+  transform: scale(1);
+  animation: zoomInMotion 15s ease-in-out infinite alternate;
+}
+
+.hotelsHeroImageNext {
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+  transform: scale(1.1);
+}
+
+.hotelsHeroImageNext.fade-in {
+  opacity: 1;
+  transform: scale(1);
+  animation: zoomInMotion 15s ease-in-out infinite alternate;
+}
+
+@keyframes zoomInMotion {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.hotelsHeroOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 60px 80px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: #fff;
+  z-index: 2;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.hotelsHeroOverlay.fade-in {
+  opacity: 1;
+}
+
+.hotelsHeroOverlay.fade-out {
+  opacity: 0;
+}
+
+.hotelsHeroName {
+  font-size: 4rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  margin-bottom: 10px;
+  letter-spacing: 0.05em;
+}
+
+.hotelsHeroLocation {
+  font-size: 1.2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.hotelsHeroExplore {
+  font-size: 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.hotelsHeroExplore:hover {
+  opacity: 0.8;
+}
+
+/* Carousel Wrapper - Positioned on bottom right of hero */
+.hotelsCarouselWrapper {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hotelsCarousel {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  max-width: 600px;
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for all browsers */
+.hotelsCarousel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera, Edge */
+}
+
+/* For Firefox - using feature query to avoid compatibility warning */
+@supports (scrollbar-width: none) {
+  .hotelsCarousel {
+    scrollbar-width: none;
+  }
+}
+
+/* Carousel Card */
+.hotelsCarouselCard {
+  background: #fff;
+  border-radius: 8px;
+  width: 160px;
+  min-width: 160px;
+  cursor: pointer;
+  text-align: center;
+  padding: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+
+.hotelsCarouselCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.hotelsCarouselCard.active {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.hotelsCarouselCardTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.hotelsCarouselCardImage {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.hotelsCarouselCardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Carousel Nav Buttons */
+.hotelsCarouselNav {
+  background: #fff;
+  color: #333;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  width: 45px;
+  height: 45px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.hotelsCarouselNav:hover {
+  background: #f5f5f5;
+  border-color: #333;
+  transform: scale(1.1);
+}
+
+.hotelsCarouselPageIndicator {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 400;
+  min-width: 30px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .hotelsHeroSection {
+    height: 80vh;
+    min-height: 500px;
+  }
+
+  .hotelsHeroOverlay {
+    padding: 40px 50px;
+  }
+
+  .hotelsHeroName {
+    font-size: 3rem;
+  }
+
+  .hotelsHeroLocation {
+    font-size: 1rem;
+  }
+
+  .hotelsHeroExplore {
+    font-size: 1rem;
+  }
+
+  .hotelsCarouselWrapper {
+    bottom: 30px;
+    right: 30px;
+    padding: 12px 15px;
+    gap: 15px;
+  }
+
+  .hotelsCarousel {
+    max-width: 500px;
+    gap: 12px;
+  }
+
+  .hotelsCarouselCard {
+    width: 140px;
+    min-width: 140px;
+    padding: 6px;
+  }
+
+  .hotelsCarouselCardImage {
+    height: 90px;
+  }
+
+  .hotelsCarouselNav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hotelsHeroSection {
+    height: 70vh;
+    min-height: 400px;
+  }
+
+  .hotelsHeroOverlay {
+    padding: 30px 20px;
+  }
+
+  .hotelsHeroName {
+    font-size: 2rem;
+  }
+
+  .hotelsHeroLocation {
+    font-size: 0.9rem;
+  }
+
+  .hotelsHeroExplore {
+    font-size: 0.9rem;
+  }
+
+  .hotelsCarouselWrapper {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    padding: 10px 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hotelsCarousel {
+    max-width: 100%;
+    gap: 10px;
+    order: 2;
+    width: 100%;
+  }
+
+  .hotelsCarouselCard {
+    width: 110px;
+    min-width: 110px;
+    padding: 5px;
+  }
+
+  .hotelsCarouselCardImage {
+    height: 80px;
+  }
+
+  .hotelsCarouselCardTitle {
+    font-size: 0.8rem;
+  }
+
+  .hotelsCarouselNav {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .hotelsCarouselPageIndicator {
+    order: 3;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+}

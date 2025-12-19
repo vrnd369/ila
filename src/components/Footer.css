@@ -1,0 +1,35 @@
+/* FOOTER */
+.footer {
+  position: relative;
+  padding: 1.5rem 1.5rem 2.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  width: 100%;
+  color: white;
+  background: transparent !important;
+  background-color: transparent !important;
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Lora', 'Merriweather', serif;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 1024px) {
+  .footer {
+    padding: 1.5rem 1.5rem 2.5rem;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 1rem 1rem 1.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+
