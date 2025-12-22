@@ -19,19 +19,13 @@ import "./sections/SectionText.css";
 // Fonts are preloaded in index.html with display=swap
 // No need for complex JS font loading - browser handles it efficiently
 
-// Prevent scroll restoration and ensure page starts at top
+// Prevent scroll restoration
 if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';
 }
 
-// Ensure page starts at top on initial load
-window.scrollTo(0, 0);
-
-// Prevent any hash-based scrolling
-if (window.location.hash) {
-  window.location.hash = '';
-  window.scrollTo(0, 0);
-}
+// Don't scroll to top here - let the loading screen handle it after video finishes
+// This prevents scrolling to top during hot reloads in development
 
 const container = document.getElementById("root");
 const root = createRoot(container);

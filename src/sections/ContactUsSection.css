@@ -6,6 +6,7 @@
   align-items: center;
   text-align: center;
   padding: 0 20px;
+  overflow: visible;
 }
 
 .contactUsTitle {
@@ -19,10 +20,19 @@
   font-weight: 300;
   line-height: 1.3;
   word-spacing: 0.1em;
+  overflow: visible;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  box-sizing: border-box;
 }
 
 .contactUsTitleNoBreak {
   white-space: nowrap;
+  overflow: visible;
+  display: inline-block;
+  padding-left: 0.1em;
+  padding-right: 0.1em;
+  box-sizing: border-box;
 }
 
 .contactUsTitleScript {

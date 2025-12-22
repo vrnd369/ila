@@ -27,15 +27,30 @@ export default function HighlightsSection() {
   const [nextHeroIndex, setNextHeroIndex] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const trackRef = useRef(null);
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
+    // Skip scrollIntoView on initial mount to prevent page scroll
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
     if (trackRef.current) {
       const cards = trackRef.current.children;
       if (cards[currentHeroIndex]) {
-        cards[currentHeroIndex].scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center",
+        // Only scroll the carousel horizontally, not the page
+        // Use scrollLeft instead of scrollIntoView to avoid page scroll
+        const card = cards[currentHeroIndex];
+        const container = trackRef.current;
+        const cardLeft = card.offsetLeft;
+        const cardWidth = card.offsetWidth;
+        const containerWidth = container.offsetWidth;
+        const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
+        
+        container.scrollTo({
+          left: scrollPosition,
+          behavior: "smooth"
         });
       }
     }

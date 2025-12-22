@@ -19,9 +19,9 @@ const IMAGE_HEIGHT = 33648;
 const SECTION_ANCHORS_DESKTOP = [
   { id: "home", y: 3500 },
   { id: "about", y: 5000 },
-  { id: "highlights", y: 9500 },
-  { id: "amenities", y: 16000 },
-  { id: "masterplan", y: 21200 },
+  { id: "highlights", y: 9400 },
+  { id: "amenities", y: 16200 },
+  { id: "masterplan", y: 21100 },
   { id: "contactus", y: 30000 },
 ];
 
@@ -31,7 +31,7 @@ const SECTION_ANCHORS_TABLET = [
   { id: "about", y: 3800 },
   { id: "highlights", y: 7200 },
   { id: "amenities", y: 12000 },
-  { id: "masterplan", y: 16000 },
+  { id: "masterplan", y: 15500 },
   { id: "contactus", y: 23000 },
 ];
 
@@ -41,7 +41,7 @@ const SECTION_ANCHORS_MOBILE = [
   { id: "about", y: 4500 },
   { id: "highlights", y: 9500 },
   { id: "amenities", y: 16000 },
-  { id: "masterplan", y: 23000 },
+  { id: "masterplan", y: 22500 },
   { id: "contactus", y: 31000 },
 ];
 
@@ -58,7 +58,36 @@ const getSectionAnchors = (width) => {
 export default function App() {
   const imgRef = useRef(null);
   const wrapRef = useRef(null);
-  const [showLoader, setShowLoader] = useState(true);
+  // Show loader on every page load/refresh
+  const [showLoader, setShowLoader] = useState(() => {
+    if (typeof window !== 'undefined') {
+      // Check navigation type to detect page refresh vs hot reload
+      const navEntry = performance.getEntriesByType('navigation')[0];
+      const isPageRefresh = navEntry && (navEntry.type === 'reload' || navEntry.type === 'navigate');
+      
+      // If it's a page refresh or navigate, always show loader
+      if (isPageRefresh) {
+        // Clear any old timestamp on refresh
+        sessionStorage.removeItem('loaderShownTime');
+        return true;
+      }
+      
+      // For hot reloads, check if loader was shown very recently (within 300ms)
+      const loaderShownTime = sessionStorage.getItem('loaderShownTime');
+      if (loaderShownTime) {
+        const now = Date.now();
+        const timeSinceLoader = now - parseInt(loaderShownTime, 10);
+        // Only skip if loader was shown less than 300ms ago (definitely a hot reload)
+        if (timeSinceLoader < 300) {
+          return false; // Don't show loader on hot reload
+        }
+      }
+      
+      // Default: show loader
+      return true;
+    }
+    return true;
+  });
   const [imgHeight, setImgHeight] = useState(0);
   const [windowWidth, setWindowWidth] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -110,11 +139,17 @@ export default function App() {
       // Lock scroll position while loading
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
-      window.scrollTo(0, 0);
+      // Don't scroll to top here - only when video finishes
     } else {
-      // Unlock scroll after loader is hidden
-      document.body.style.overflow = '';
+      // Unlock scroll after loader is hidden - restore normal scrolling
+      // IMPORTANT: Only html should scroll, body should never create scrollbar
       document.documentElement.style.overflow = '';
+      document.documentElement.style.overflowY = 'auto';
+      document.documentElement.style.overflowX = 'hidden';
+      // Body should never create its own scrollbar
+      document.body.style.overflow = '';
+      document.body.style.overflowY = 'visible';
+      document.body.style.overflowX = 'hidden';
     }
   }, [showLoader]);
 
@@ -124,37 +159,27 @@ export default function App() {
       window.history.scrollRestoration = 'manual';
     }
     
-    // Ensure page starts at top on initial load
-    window.scrollTo(0, 0);
-    
-    // Reduced timeout for faster initial render - don't block content
-    // In production, loading screen should be minimal
-    const timeoutId = setTimeout(() => {
-      setShowLoader(false);
-      // Ensure scroll to top when timeout finishes
-      requestAnimationFrame(() => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'instant'
-        });
-      });
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, []);
+    // Don't set timeout - let the video finish naturally (8 seconds)
+    // The video's "ended" event will call handleLoaderFinish
+  }, [showLoader]);
 
 
   const handleLoaderFinish = useCallback(() => {
     setShowLoader(false);
-    // Immediately scroll to top when loader finishes
-    // Use requestAnimationFrame to ensure DOM is ready
+    // Mark that loader has been shown with timestamp (prevents showing on hot reload)
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('loaderShownTime', Date.now().toString());
+    }
+    // Only scroll to top when loading video finishes (first load)
+    // This ensures scroll only happens after the video, not during hot reloads
+    // Use multiple attempts to ensure we stay at top
     requestAnimationFrame(() => {
       window.scrollTo({
         top: 0,
         left: 0,
         behavior: 'instant'
       });
-      // Force scroll again after a brief delay to ensure it sticks
+      // Force scroll again after delays to ensure it sticks and prevent any auto-scroll
       setTimeout(() => {
         window.scrollTo({
           top: 0,
@@ -162,6 +187,20 @@ export default function App() {
           behavior: 'instant'
         });
       }, 50);
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'instant'
+        });
+      }, 200);
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'instant'
+        });
+      }, 500);
     });
   }, []);
 
@@ -218,16 +257,16 @@ export default function App() {
             </div>
           ))}
         
-        {imgHeight > 0 && (
+        {imgRef.current && imgHeight > 0 && (
           <div 
             className="footerWrapper"
             style={{ 
               position: 'absolute', 
-              top: `${imgHeight}px`, 
+              bottom: 0, 
               left: 0, 
               right: 0, 
               zIndex: 2,
-              transform: windowWidth < 768 ? 'translateY(0)' : 'translateY(-100%)'
+              width: '100%'
             }}
           >
             <Footer />

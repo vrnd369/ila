@@ -14,8 +14,8 @@ export default function LoadingScreen({ onFinish }) {
     video.addEventListener("ended", handleEnded);
     video.addEventListener("error", handleError);
 
-    // Set playback speed (1.5x = faster, 0.5x = slower, 1.0 = normal)
-    video.playbackRate = 1.5;
+    // Set playback speed (1.2x = slightly faster, still plays complete video)
+    video.playbackRate = 1.2;
 
     // Autoplay might be blocked on some browsers; try play once mounted
     const playPromise = video.play();

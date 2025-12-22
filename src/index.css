@@ -6,7 +6,9 @@ html {
 body {
   margin: 0;
   /* System fonts as fallback - fonts will swap in with display=swap */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* Use serif fallback that matches Playfair Display and Cormorant Garamond better */
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, 'Times New Roman', serif,
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -16,6 +18,8 @@ body {
   text-align: left;
   /* Content visible immediately - fonts swap in without blocking */
   visibility: visible;
+  /* Prevent font loading from blocking render */
+  font-display: swap;
 }
 
 code {
