@@ -79,7 +79,7 @@ export default function App() {
         const timeSinceLoader = now - parseInt(loaderShownTime, 10);
         // Only skip if loader was shown less than 300ms ago (definitely a hot reload)
         if (timeSinceLoader < 300) {
-          return false; // Don't show loader on hot reload
+        return false; // Don't show loader on hot reload
         }
       }
       
@@ -114,16 +114,48 @@ export default function App() {
   }, [windowWidth]);
 
   // Measure image height after load to position sections correctly
+  // Wait for fonts to load to ensure consistent measurements between dev and production
   useEffect(() => {
     const measure = () => {
       if (!imgRef.current) return;
-      setImgHeight(imgRef.current.getBoundingClientRect().height);
+      
+      // Wait for fonts to load before measuring to ensure consistent layout
+      // This prevents alignment differences between localhost and production
+      const performMeasurement = () => {
+        // Use requestAnimationFrame to ensure layout is complete
+        requestAnimationFrame(() => {
+          if (imgRef.current) {
+            const height = imgRef.current.getBoundingClientRect().height;
+            // Only update if height is valid
+            if (height > 0) {
+              setImgHeight(height);
+            }
+          }
+        });
+      };
+
+      if (document.fonts && document.fonts.ready) {
+        // Wait for fonts to load before measuring
+        document.fonts.ready.then(() => {
+          performMeasurement();
+        });
+      } else {
+        // Fallback for browsers without Font Loading API
+        // Small delay to allow fonts to load
+        setTimeout(() => {
+          performMeasurement();
+        }, 100);
+      }
     };
 
     const img = imgRef.current;
     if (img) {
-      if (img.complete) measure();
-      img.addEventListener("load", measure);
+      if (img.complete && img.naturalHeight > 0) {
+        // Image already loaded, measure after fonts
+        measure();
+      } else {
+        img.addEventListener("load", measure);
+      }
     }
 
     window.addEventListener("resize", measure);

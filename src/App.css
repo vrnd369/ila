@@ -68,6 +68,10 @@ html, body, #root {
   /* Maintain aspect ratio to prevent CLS */
   /* Image is very tall (33648px), so we use a flexible approach */
   aspect-ratio: auto;
+  /* Ensure image dimensions are calculated consistently */
+  object-fit: contain;
+  /* Prevent image from causing layout shifts */
+  will-change: auto;
 }
 
 .overlay {

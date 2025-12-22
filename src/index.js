@@ -17,7 +17,8 @@ import "./sections/ContactUsSection.css";
 import "./sections/SectionText.css";
 
 // Fonts are preloaded in index.html with display=swap
-// No need for complex JS font loading - browser handles it efficiently
+// Wait for fonts to load before rendering to prevent layout shifts
+// This ensures consistent measurements between development and production
 
 // Prevent scroll restoration
 if ('scrollRestoration' in window.history) {
@@ -27,6 +28,17 @@ if ('scrollRestoration' in window.history) {
 // Don't scroll to top here - let the loading screen handle it after video finishes
 // This prevents scrolling to top during hot reloads in development
 
-const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<App />);
+// Wait for fonts to load before rendering to ensure consistent layout
+if (typeof window !== 'undefined' && document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => {
+    // Fonts are loaded, proceed with rendering
+    const container = document.getElementById("root");
+    const root = createRoot(container);
+    root.render(<App />);
+  });
+} else {
+  // Fallback for browsers without Font Loading API
+  const container = document.getElementById("root");
+  const root = createRoot(container);
+  root.render(<App />);
+}
