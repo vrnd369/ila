@@ -73,7 +73,7 @@ export default function AmenitiesSection() {
       </p>
 
       <div className="amenitiesLegacyContainer">
-        <h2 className="amenitiesLegacyTitle">BUILT FOR LEGACY, STYLED FOR NOW:</h2>
+        <h2 className="amenitiesLegacyTitle">BUILT FOR LEGACY,<br/> STYLED FOR NOW:</h2>
         <p className="amenitiesLegacyText">
           Each amenity at iLA is designed to nurture a quiet,<br />
           flowing lifestyle, one where nature, movement, and<br />

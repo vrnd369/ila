@@ -1,6 +1,10 @@
 html {
   direction: ltr;
   text-align: left;
+  /* Ensure consistent text rendering across environments */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -18,6 +22,10 @@ body {
   text-align: left;
   /* Content visible immediately - fonts swap in without blocking */
   visibility: visible;
+  /* Consistent text rendering to prevent alignment differences */
+  text-rendering: optimizeLegibility;
+  /* Prevent font synthesis differences between environments */
+  font-synthesis: none;
   /* Prevent font loading from blocking render */
   font-display: swap;
 }

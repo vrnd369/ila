@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Web site created using create-react-app"
@@ -21,17 +20,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Critical Fonts - Load immediately (used above the fold) -->
-    <!-- Playfair Display and Cormorant Garamond are used in main headings -->
+    <!-- Primary Fonts - Load immediately -->
+    <!-- Playfair Display: Used for all headings/titles -->
+    <!-- Cormorant Garamond: Used for all body text/descriptions -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- Secondary Fonts - Load asynchronously (Lora, Merriweather, Shippori Mincho) -->
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@300;400&family=Merriweather:wght@300;400&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Lora:wght@300;400&family=Merriweather:wght@300;400&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet"></noscript>
-    
-    <!-- Script/Decorative Fonts - Load last (Dancing Script, Great Vibes, etc.) -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Petit+Formal+Script&family=Beau+Rivage&family=Pinyon+Script&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Petit+Formal+Script&family=Beau+Rivage&family=Pinyon+Script&display=swap" rel="stylesheet"></noscript>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -42,18 +34,6 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>ILA</title>
-    <!-- Script to handle async font loading -->
-    <script>
-      // Load non-critical fonts asynchronously
-      (function() {
-        var links = document.querySelectorAll('link[media="print"]');
-        for (var i = 0; i < links.length; i++) {
-          links[i].onload = function() {
-            this.media = 'all';
-          };
-        }
-      })();
-    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

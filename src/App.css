@@ -1,37 +1,38 @@
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+}
 
 html {
   scroll-behavior: auto;
-  /* Prevent scroll restoration */
   scroll-padding-top: 0;
   overflow-x: hidden;
   overflow-y: auto;
+
+  /* ✅ CRITICAL: prevents width change on refresh when scrollbar appears/disappears */
+  scrollbar-gutter: stable;
 }
 
 html, body {
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
   background-color: #0a1a0f;
   direction: ltr;
   text-align: left;
-  /* Ensure page starts at top */
-  scroll-behavior: auto;
 }
 
 body {
-  overflow-x: hidden;
-  overflow-y: visible !important;
   width: 100%;
   position: relative;
-  margin: 0;
-  padding: 0;
 }
 
 html, body, #root {
-  margin: 0;
-  padding: 0;
   font-family: system-ui, -apple-system, Segoe UI, sans-serif;
   background-color: #0a1a0f;
-  direction: ltr;
 }
 
 #root {
@@ -46,34 +47,39 @@ html, body, #root {
   overflow: visible;
 }
 
+/* =========================
+   ✅ STABLE POSTER LAYOUT
+   ========================= */
 .posterWrap {
   position: relative;
   width: 100%;
   max-width: 100vw;
   background-color: #0a1a0f;
-  overflow-x: hidden;
-  overflow-y: visible;
-  contain: layout style;
-  /* Prevent layout shift - reserve space for image */
+
+  /* Height is controlled by aspect-ratio (set inline in App.js) */
   min-height: 100vh;
-  /* Container height will match image height - footer positioned at bottom edge */
+
+  overflow: hidden;
+  contain: layout style;
 }
 
+/* ✅ IMPORTANT: no height:auto */
 .posterImg {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  /* Prevent layout shift - reserve minimum space */
-  min-height: 100vh;
-  /* Maintain aspect ratio to prevent CLS */
-  /* Image is very tall (33648px), so we use a flexible approach */
-  aspect-ratio: auto;
-  /* Ensure image dimensions are calculated consistently */
-  object-fit: contain;
-  /* Prevent image from causing layout shifts */
+
+  /* Use cover for stable mapping (recommended) */
+  object-fit: cover;
+
   will-change: auto;
 }
 
+/* =========================
+   OVERLAYS
+   ========================= */
 .overlay {
   position: absolute;
   width: min(90vw, 700px);
@@ -86,18 +92,8 @@ html, body, #root {
   contain: layout style paint;
 }
 
-/* Full-width sections that need to break out of overlay */
-.overlay[id="highlights"] {
-  width: 100%;
-  max-width: 100vw;
-  left: 0;
-  right: 0;
-  transform: none;
-  padding-left: 0;
-  padding-right: 0;
-  contain: layout style;
-}
-
+/* Full-width sections */
+.overlay[id="highlights"],
 .overlay[id="amenities"] {
   width: 100%;
   max-width: 100vw;
@@ -118,14 +114,17 @@ html, body, #root {
   overflow: visible;
 }
 
+/* =========================
+   ✅ FOOTER (pinned)
+   ========================= */
 .footerWrapper {
   position: absolute;
   left: 0;
   right: 0;
+  bottom: 0; /* ✅ REQUIRED */
   z-index: 2;
   width: 100%;
   pointer-events: none;
-  /* Footer positioned at bottom of image, no extra space */
 }
 
 .footerWrapper .footer {
@@ -143,4 +142,12 @@ html, body, #root {
     left: 0;
     transform: none;
   }
+}
+
+/* Ensure consistent text rendering */
+h1, h2, h3, h4, h5, h6, p, span, div, a, li, td, th {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
 }
