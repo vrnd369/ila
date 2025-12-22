@@ -21,7 +21,7 @@ const SECTION_ANCHORS_DESKTOP = [
   { id: "about", y: 5000 },
   { id: "highlights", y: 9400 },
   { id: "amenities", y: 16200 },
-  { id: "masterplan", y: 21100 },
+  { id: "masterplan", y: 21300 },
   { id: "contactus", y: 30000 },
 ];
 
@@ -114,54 +114,131 @@ export default function App() {
   }, [windowWidth]);
 
   // Measure image height after load to position sections correctly
-  // Wait for fonts to load to ensure consistent measurements between dev and production
+  // Wait for fonts and CSS to fully load to ensure consistent measurements between dev and production
   useEffect(() => {
+    let measurementTimeout = null;
+    const MAX_RETRIES = 8; // Increased for production stability
+    let lastHeight = 0;
+    let stableMeasurements = 0;
+    const REQUIRED_STABLE = 2; // Need 2 consecutive stable measurements
+    
     const measure = () => {
       if (!imgRef.current) return;
       
       // Wait for fonts to load before measuring to ensure consistent layout
       // This prevents alignment differences between localhost and production
-      const performMeasurement = () => {
-        // Use requestAnimationFrame to ensure layout is complete
+      const performMeasurement = (attempt = 0) => {
+        // Use multiple requestAnimationFrame calls to ensure layout is fully complete
         requestAnimationFrame(() => {
-          if (imgRef.current) {
-            const height = imgRef.current.getBoundingClientRect().height;
-            // Only update if height is valid
-            if (height > 0) {
-              setImgHeight(height);
-            }
-          }
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => { // Extra frame for production stability
+              if (imgRef.current) {
+                const height = imgRef.current.getBoundingClientRect().height;
+                // Only update if height is valid and stable
+                if (height > 0) {
+                  // Check if height is stable across multiple measurements
+                  if (Math.abs(height - lastHeight) < 1) {
+                    stableMeasurements++;
+                    if (stableMeasurements >= REQUIRED_STABLE) {
+                      // Height is stable, set it
+                      setImgHeight(height);
+                      return; // Exit once stable
+                    }
+                  } else {
+                    // Height changed, reset counter
+                    stableMeasurements = 0;
+                    lastHeight = height;
+                  }
+                  
+                  // Continue measuring if not stable yet
+                  if (attempt < MAX_RETRIES) {
+                    setTimeout(() => performMeasurement(attempt + 1), 100);
+                  } else {
+                    // Max retries reached, use current height
+                    setImgHeight(height);
+                  }
+                } else if (attempt < MAX_RETRIES) {
+                  // Height is 0, retry after delay
+                  setTimeout(() => performMeasurement(attempt + 1), 150);
+                }
+              }
+            });
+          });
         });
       };
 
-      if (document.fonts && document.fonts.ready) {
-        // Wait for fonts to load before measuring
-        document.fonts.ready.then(() => {
-          performMeasurement();
-        });
-      } else {
-        // Fallback for browsers without Font Loading API
-        // Small delay to allow fonts to load
-        setTimeout(() => {
-          performMeasurement();
-        }, 100);
-      }
+      // Wait for fonts to load, then wait longer for CSS to be fully applied
+      // Production needs more time for resources to load
+      const waitForFontsAndCSS = () => {
+        if (document.fonts && document.fonts.ready) {
+          // Wait for fonts to load
+          document.fonts.ready.then(() => {
+            // Longer delay for production to ensure CSS is fully applied
+            // This is critical for production where CSS might load slightly later
+            setTimeout(() => {
+              performMeasurement();
+            }, 300); // Increased from 150ms for production stability
+          });
+        } else {
+          // Fallback for browsers without Font Loading API
+          // Longer delay to allow fonts and CSS to load
+          setTimeout(() => {
+            performMeasurement();
+          }, 500);
+        }
+      };
+
+      waitForFontsAndCSS();
     };
 
     const img = imgRef.current;
     if (img) {
       if (img.complete && img.naturalHeight > 0) {
-        // Image already loaded, measure after fonts
+        // Image already loaded, measure after fonts and CSS
         measure();
       } else {
         img.addEventListener("load", measure);
       }
     }
 
-    window.addEventListener("resize", measure);
+    // Also measure on window load to catch any late-loading resources
+    // This is critical for production where resources load at different times
+    const handleWindowLoad = () => {
+      if (imgRef.current && imgRef.current.complete) {
+        // Final measurement after everything is loaded
+        // Longer delay to ensure all CSS and fonts are fully applied
+        setTimeout(() => {
+          measure();
+        }, 500); // Final check after a longer delay for production
+      }
+    };
+    
+    if (document.readyState === 'complete') {
+      // Document already loaded
+      setTimeout(handleWindowLoad, 200);
+    } else {
+      window.addEventListener('load', handleWindowLoad);
+    }
+
+    // Debounce resize to prevent excessive measurements
+    let resizeTimeout = null;
+    const handleResize = () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        // Reset stability counter on resize
+        stableMeasurements = 0;
+        lastHeight = 0;
+        measure();
+      }, 200);
+    };
+
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('load', handleWindowLoad);
       if (img) img.removeEventListener("load", measure);
+      if (measurementTimeout) clearTimeout(measurementTimeout);
+      if (resizeTimeout) clearTimeout(resizeTimeout);
     };
   }, []);
 

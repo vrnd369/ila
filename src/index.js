@@ -29,16 +29,26 @@ if ('scrollRestoration' in window.history) {
 // This prevents scrolling to top during hot reloads in development
 
 // Wait for fonts to load before rendering to ensure consistent layout
-if (typeof window !== 'undefined' && document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(() => {
-    // Fonts are loaded, proceed with rendering
-    const container = document.getElementById("root");
-    const root = createRoot(container);
-    root.render(<App />);
-  });
-} else {
-  // Fallback for browsers without Font Loading API
+// Also wait a bit for CSS to be fully applied in production
+const renderApp = () => {
   const container = document.getElementById("root");
   const root = createRoot(container);
   root.render(<App />);
+};
+
+if (typeof window !== 'undefined' && document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => {
+    // Fonts are loaded, wait longer for CSS to be fully applied
+    // This ensures consistent rendering between development and production
+    // Production needs more time for CSS to be fully processed
+    setTimeout(() => {
+      renderApp();
+    }, 150); // Increased delay for production stability
+  });
+} else {
+  // Fallback for browsers without Font Loading API
+  // Wait longer to ensure CSS is loaded
+  setTimeout(() => {
+    renderApp();
+  }, 250);
 }
