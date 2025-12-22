@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 
 // Import images
-import page3 from "../assets/page3.png";
-import page11 from "../assets/page11.png";
-import page12 from "../assets/page12.png";
-import page13 from "../assets/page13.png";
-import page15 from "../assets/page15.png";
-import page16 from "../assets/page16.png";
-import page19 from "../assets/page19.png";
+import page3 from "../assets/page3.webp";
+import page11 from "../assets/page11.webp";
+import page12 from "../assets/page12.webp";
+import page13 from "../assets/page13.webp";
+import page15 from "../assets/page15.webp";
+import page16 from "../assets/page16.webp";
+import page19 from "../assets/page19.webp";
 
 // Create a flat array of all images with their titles
 const allImages = [

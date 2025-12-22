@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 
 // Import images
-import page1 from "../assets/page1.png";
-import page2 from "../assets/page2.png";
-import page4 from "../assets/page4.png";
-import page6 from "../assets/page6.png";
-import page7 from "../assets/page7.png";
-import page8 from "../assets/page8.png";
-import page9 from "../assets/page9.png";
-import page17 from "../assets/page17.png";
+import page1 from "../assets/page1.webp";
+import page2 from "../assets/page2.webp";
+import page4 from "../assets/page4.webp";
+import page6 from "../assets/page6.webp";
+import page7 from "../assets/page7.webp";
+import page8 from "../assets/page8.webp";
+import page9 from "../assets/page9.webp";
+import page17 from "../assets/page17.webp";
 
 // Hotel data with images
 const hotelImages = [
